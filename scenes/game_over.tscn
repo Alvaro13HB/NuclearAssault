@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3tnfkqw7gf64"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_iolg5"]
+[ext_resource type="Theme" uid="uid://dw431j2iqpyo4" path="res://themes/button_theme.tres" id="1_m1ssd"]
+[ext_resource type="FontFile" uid="uid://bl5mhpfcj1mac" path="res://fonts/8-BIT WONDER.TTF" id="2_fia7f"]
+[ext_resource type="Script" path="res://scripts/final_score_label.gd" id="3_ensmn"]
+[ext_resource type="Shader" path="res://themes/crt_shader.gdshader" id="4_byyqj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikw7o"]
+shader = ExtResource("4_byyqj")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.1
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 6.0
+shader_parameter/roll_variation = 4.0
+shader_parameter/distort_intensity = 0.005
+shader_parameter/noise_opacity = 0.05
+shader_parameter/noise_speed = 2.0
+shader_parameter/static_noise_intensity = 0.15
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.3
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.4
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iolg5")
+
+[node name="BackGround" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 340.0
+offset_bottom = 256.0
+
+[node name="TitleLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 99.0
+offset_top = 112.0
+offset_right = -97.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m1ssd")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "GAME OVER"
+
+[node name="ScoreLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 111.0
+offset_top = 136.0
+offset_right = -108.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_fia7f")
+theme_override_font_sizes/font_size = 11
+text = "PLACEHOLDER
+PLACEHOLDER"
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("3_ensmn")
+
+[node name="CRTShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ikw7o")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

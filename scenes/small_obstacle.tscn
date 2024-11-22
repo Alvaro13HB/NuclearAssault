@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbkn8h0rwb3lb"]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_xe7kd"]
+[ext_resource type="Texture2D" uid="uid://bqly1kwhogu11" path="res://sprites/obstacles_sprites/leaf.png" id="2_o7dtm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nwb4"]
+size = Vector2(16.5, 16)
+
+[node name="SmallObstacle" type="CharacterBody2D"]
+script = ExtResource("1_xe7kd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_o7dtm")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(0.5, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, 0)
+shape = SubResource("RectangleShape2D_4nwb4")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

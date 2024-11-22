@@ -1,0 +1,156 @@
+[gd_scene load_steps=17 format=3 uid="uid://cv5ib01hp1bk0"]
+
+[ext_resource type="Texture2D" uid="uid://bmxktiywy6oe3" path="res://sprites/BackGroundTransition.png" id="1_603uh"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_ggiij"]
+[ext_resource type="Texture2D" uid="uid://biwyjolut6gyo" path="res://sprites/Clouds.png" id="2_5gl8i"]
+[ext_resource type="PackedScene" uid="uid://cbpc7vv613c1n" path="res://scenes/bomb.tscn" id="3_duvmg"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="4_hl5og"]
+[ext_resource type="PackedScene" uid="uid://cctu4r233wisg" path="res://scenes/obstacle_spawner.tscn" id="5_qt2kr"]
+[ext_resource type="FontFile" uid="uid://bl5mhpfcj1mac" path="res://fonts/8-BIT WONDER.TTF" id="6_prnoh"]
+[ext_resource type="Script" path="res://scripts/score_label.gd" id="7_exlkt"]
+[ext_resource type="Shader" path="res://themes/crt_shader.gdshader" id="8_icg44"]
+[ext_resource type="PackedScene" uid="uid://bucoah1xwd5k4" path="res://scenes/menu.tscn" id="9_xbsqp"]
+[ext_resource type="AudioStream" uid="uid://qhvdai6lo6kr" path="res://audios/button.mp3" id="11_8n0qb"]
+[ext_resource type="AudioStream" uid="uid://cedb32mhw6ssw" path="res://audios/ear-ring.mp3" id="12_1xh4e"]
+
+[sub_resource type="Animation" id="Animation_1yaih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackGround/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3n6mt"]
+resource_name = "daynight"
+length = 1.2
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackGround/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxvcn"]
+_data = {
+"RESET": SubResource("Animation_1yaih"),
+"daynight": SubResource("Animation_3n6mt")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imv4f"]
+shader = ExtResource("8_icg44")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.1
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 6.0
+shader_parameter/roll_variation = 4.0
+shader_parameter/distort_intensity = 0.005
+shader_parameter/noise_opacity = 0.05
+shader_parameter/noise_speed = 2.0
+shader_parameter/static_noise_intensity = 0.15
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.3
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.4
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ggiij")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="BackGround" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackGround"]
+texture_filter = 1
+position = Vector2(170, 128)
+texture = ExtResource("1_603uh")
+hframes = 3
+vframes = 2
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 256)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Clouds"]
+texture_filter = 1
+position = Vector2(170, 127)
+texture = ExtResource("2_5gl8i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
+libraries = {
+"": SubResource("AnimationLibrary_uxvcn")
+}
+
+[node name="Bomb" parent="." instance=ExtResource("3_duvmg")]
+position = Vector2(170, 128)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("4_hl5og")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("9_xbsqp")]
+spawner = ExtResource("5_qt2kr")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 340.0
+offset_bottom = 256.0
+color = Color(1, 1, 1, 0)
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -158.0
+offset_bottom = -229.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_prnoh")
+text = "PLACEHOLDER"
+script = ExtResource("7_exlkt")
+
+[node name="CRTShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_imv4f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="AudioButton" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_8n0qb")
+
+[node name="AudioDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_1xh4e")
+
+[connection signal="timeout" from="ScoreTimer" to="CanvasLayer/ScoreLabel" method="_on_score_timer_timeout"]

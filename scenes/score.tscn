@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://de14so8c1w3im"]
+
+[ext_resource type="Script" path="res://scripts/score_menu.gd" id="1_gd2di"]
+[ext_resource type="Theme" uid="uid://dw431j2iqpyo4" path="res://themes/button_theme.tres" id="3_jln8k"]
+[ext_resource type="FontFile" uid="uid://bl5mhpfcj1mac" path="res://fonts/8-BIT WONDER.TTF" id="4_7pi6t"]
+[ext_resource type="Script" path="res://scripts/button.gd" id="4_f7ah5"]
+[ext_resource type="Script" path="res://scripts/score_menu_label.gd" id="5_0ckkk"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gd2di")
+
+[node name="BackGround" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.823529)
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 221.0
+offset_right = -263.0
+offset_bottom = -4.0
+theme = ExtResource("3_jln8k")
+text = "BACK"
+script = ExtResource("4_f7ah5")
+
+[node name="ScoreLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 109.5
+offset_top = 122.5
+offset_right = -109.5
+offset_bottom = -122.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_7pi6t")
+theme_override_font_sizes/font_size = 11
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("5_0ckkk")
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

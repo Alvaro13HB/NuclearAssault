@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bucoah1xwd5k4"]
+[gd_scene load_steps=6 format=3 uid="uid://bucoah1xwd5k4"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_jpsqg"]
 [ext_resource type="Texture2D" uid="uid://cvegabuxsf320" path="res://sprites/LOGO.png" id="1_wtnho"]
+[ext_resource type="PackedScene" uid="uid://cctu4r233wisg" path="res://scenes/obstacle_spawner.tscn" id="2_5if2w"]
 [ext_resource type="Theme" uid="uid://dw431j2iqpyo4" path="res://themes/button_theme.tres" id="2_k641i"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="3_wyl8v"]
 
@@ -13,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jpsqg")
+spawner = ExtResource("2_5if2w")
 
 [node name="BackGround" type="ColorRect" parent="."]
 layout_mode = 1

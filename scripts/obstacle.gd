@@ -9,7 +9,7 @@ func initialize() -> void:
 	# var sprite = $Sprite2D
 	# sprite.texture = sprites.pick_random()
 	# sprite.rotation_degrees = randf_range(0.0, 360.0)
-	velocity = Vector2.UP * 150
+	velocity = Vector2.UP * Global.speed
 	var value
 	if randf() < 0.5:
 		value = 1 
